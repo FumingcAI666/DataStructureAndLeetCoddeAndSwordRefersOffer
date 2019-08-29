@@ -14,6 +14,11 @@ public class Pro04 {
         System.out.println(reConstructBinaryTree(pre, in).toString());
     }
 
+    /**
+     * @param pre 先序遍历
+     * @param in  中序遍历
+     * @return 后序遍历
+     */
     public static TreeNode04 reConstructBinaryTree(int[] pre, int[] in) {
         TreeNode04 root = reConstructBinaryTree(pre, 0, pre.length - 1, in, 0, in.length - 1);
         return root;
