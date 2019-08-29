@@ -21,7 +21,7 @@ public class Pro01 {
      * @param array  二维数组
      * @return
      */
-    public static boolean find(int target, int[][] array) {/
+    public static boolean find(int target, int[][] array) {
         for (int i = 0; i < array.length; i++) {
             int low = 0;
             int high = array[i].length - 1;
