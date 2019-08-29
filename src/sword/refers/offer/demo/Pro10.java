@@ -16,6 +16,12 @@ public class Pro10 {
         System.out.println(RectCover(6));
     }
 
+    /**
+     * 满足公式：d(n) = d(n-1) + d(n-2)
+     *
+     * @param target
+     * @return
+     */
     public static int RectCover(int target) {
         if (target < 1) {
             return 0;
