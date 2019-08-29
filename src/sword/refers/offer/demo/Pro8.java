@@ -27,6 +27,8 @@ public class Pro8 {
         int a = 1;
         int b = 2;
         int result = 0;
+
+        // 从头开始计算斐波那契数列
         for (int i = 0; i < target - 2; i++) {
             result = a + b;
             a = b;
