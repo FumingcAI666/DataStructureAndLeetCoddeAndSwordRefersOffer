@@ -14,8 +14,14 @@ public class Pro01 {
         System.out.println(find(2, arr));
     }
 
-    public static boolean find(int target, int[][] array) {
-        // 将二维数组进行二分查找
+    /**
+     * 将二维数组进行二分查找
+     *
+     * @param target 目标数字
+     * @param array  二维数组
+     * @return
+     */
+    public static boolean find(int target, int[][] array) {/
         for (int i = 0; i < array.length; i++) {
             int low = 0;
             int high = array[i].length - 1;
