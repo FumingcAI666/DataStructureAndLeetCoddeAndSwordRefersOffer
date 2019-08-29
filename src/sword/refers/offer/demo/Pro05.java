@@ -29,7 +29,7 @@ public class Pro05 {
     }
 
     /**
-     * 栈1保存数据
+     * 栈1永远只是保存数据
      *
      * @param node
      */
