@@ -14,6 +14,11 @@ public class Pro03 {
         System.out.println(printListFromTailToHead(listNode03));
     }
 
+    /**
+     * 倒叙遍历链表
+     * @param listNode
+     * @return
+     */
     public static ArrayList<Integer> printListFromTailToHead(ListNode03 listNode) {
         ArrayList<Integer> list = new ArrayList<Integer>();
         while (listNode != null) {
