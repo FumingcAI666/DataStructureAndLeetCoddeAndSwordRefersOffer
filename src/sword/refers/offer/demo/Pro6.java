@@ -15,10 +15,13 @@ public class Pro6 {
         System.out.println(minNumberInRotateArray(arr));
     }
 
-    /**
-     * 一个局部排好序的列表
-     */
 
+    /**
+     * 一个局部排好序的列表,线性查询最小元素
+     *
+     * @param array
+     * @return
+     */
     public static int minNumberInRotateArray(int[] array) {
         int len = array.length;
         if (len == 0) {
