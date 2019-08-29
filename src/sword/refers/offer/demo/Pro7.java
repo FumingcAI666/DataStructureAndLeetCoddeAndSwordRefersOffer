@@ -32,7 +32,7 @@ public class Pro7 {
         if (n == 1) {
             return 1;
         }
-        // 从2 计算到 n 相加
+        // 从2 开始计算到 n 相加
         for (int i = 2; i <= n; i++) {
             result = preNum + prePreNum;
             prePreNum = preNum;
