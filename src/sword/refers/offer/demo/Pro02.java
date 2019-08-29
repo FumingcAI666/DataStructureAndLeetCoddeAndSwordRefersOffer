@@ -14,8 +14,13 @@ public class Pro02 {
         System.out.println(replaceSpace(stringBuffer));
     }
 
+    /**
+     * StringBuffer转换为Stirng，在进行替换函数替换
+     *
+     * @param str
+     * @return
+     */
     public static String replaceSpace(StringBuffer str) {
-        // StringBuffer转换为Stirng，在进行替换函数替换
         String str1 = String.valueOf(str).replace(" ", "%20");
         return str1;
     }
