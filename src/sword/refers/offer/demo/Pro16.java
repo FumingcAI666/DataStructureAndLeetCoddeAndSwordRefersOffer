@@ -1,7 +1,7 @@
 package sword.refers.offer.demo;
 
 /**
- * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+ * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：空树不是任意一个树的子结构）
  *
  * @author macfmc
  * @date 2019/8/31-0:19
