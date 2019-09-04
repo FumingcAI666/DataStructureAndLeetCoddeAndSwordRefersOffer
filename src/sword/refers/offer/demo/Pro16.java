@@ -1,5 +1,7 @@
 package sword.refers.offer.demo;
 
+import java.util.Scanner;
+
 /**
  * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：空树不是任意一个树的子结构）
  *
@@ -8,9 +10,24 @@ package sword.refers.offer.demo;
  */
 public class Pro16 {
     public static void main(String[] args) {
-        TreeNode treeNode1 = new TreeNode(3);
-        TreeNode treeNode2 = new TreeNode(3);
-        HasSubtree(treeNode1, treeNode2);
+        Scanner in = new Scanner(System.in);
+        TreeNode treeNode1 = null;
+        TreeNode treeNode2 = null;
+        while (in.hasNextInt()) {
+            int l = in.nextInt();
+            int r = in.nextInt();
+            if (treeNode1 == null) {
+                treeNode2 = new TreeNode(l);
+                treeNode1 = treeNode2;
+            } else {
+                treeNode2.left = new TreeNode(l);
+                treeNode2 = treeNode2.left;
+                treeNode2.right = new TreeNode(r);
+                treeNode2 = treeNode2.right;
+            }
+            HasSubtree(treeNode1, treeNode2);
+        }
+
     }
 
     /**
@@ -40,6 +57,7 @@ public class Pro16 {
             }
         }
         //返回结果
+        System.out.println(result);
         return result;
     }
 
