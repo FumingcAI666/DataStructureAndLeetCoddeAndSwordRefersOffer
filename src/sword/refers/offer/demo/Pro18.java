@@ -17,10 +17,12 @@ public class Pro18 {
     /**
      * new一个数组 以便下面函数能调用
      */
-    ArrayList a = new ArrayList();
+    static ArrayList a = new ArrayList();
 
     public static void main(String[] args) {
-
+        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+        System.out.println(printMatrix(matrix));
+        // [1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10]
     }
 
     /**
@@ -30,7 +32,7 @@ public class Pro18 {
      * @param matrix
      * @return
      */
-    public ArrayList printMatrix(int[][] matrix) {
+    public static ArrayList printMatrix(int[][] matrix) {
         int tR = 0;
         int tC = 0;
         int dR = matrix.length - 1;
@@ -50,7 +52,7 @@ public class Pro18 {
      * @param dR
      * @param dC
      */
-    public void printEdge(int[][] m, int tR, int tC, int dR, int dC) {
+    public static void printEdge(int[][] m, int tR, int tC, int dR, int dC) {
         if (tR == dR) {
             //先判断是否只是一横行 如果是 打印该横行的列（通常用于内圈）
             for (int i = tC; i <= dC; i++) {
