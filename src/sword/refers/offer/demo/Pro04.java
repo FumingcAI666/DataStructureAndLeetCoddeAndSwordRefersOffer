@@ -42,25 +42,26 @@ public class Pro04 {
         }
         return root;
     }
-}
 
-/**
- * Definition for binary tree
- */
-class TreeNode04 {
-    int val;
-    TreeNode04 left;
-    TreeNode04 right;
+    /**
+     * Definition for binary tree
+     */
+    static class TreeNode04 {
+        int val;
+        TreeNode04 left;
+        TreeNode04 right;
 
-    TreeNode04(int x) { val = x; }
+        TreeNode04(int x) { val = x; }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("TreeNode04{");
-        sb.append("val=").append(val);
-        sb.append(", left=").append(left);
-        sb.append(", right=").append(right);
-        sb.append('}');
-        return sb.toString();
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("TreeNode04{");
+            sb.append("val=").append(val);
+            sb.append(", left=").append(left);
+            sb.append(", right=").append(right);
+            sb.append('}');
+            return sb.toString();
+        }
     }
 }
+

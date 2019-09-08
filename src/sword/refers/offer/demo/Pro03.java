@@ -16,6 +16,7 @@ public class Pro03 {
 
     /**
      * 倒叙遍历链表
+     *
      * @param listNode
      * @return
      */
@@ -28,14 +29,15 @@ public class Pro03 {
         }
         return list;
     }
-}
 
-class ListNode03 {
-    int val;
-    ListNode03 next = null;
+    static class ListNode03 {
+        int val;
+        ListNode03 next = null;
 
-    ListNode03(int val) {
-        this.val = val;
+        ListNode03(int val) {
+            this.val = val;
+        }
     }
+
 }
 
