@@ -26,12 +26,6 @@ public class Pro22 {
 
     }
 
-    /**
-     * @param a
-     * @param star
-     * @param root
-     * @return
-     */
     public boolean ju(int[] a, int star, int root) {
         if (star >= root) {
             return true;
@@ -52,6 +46,10 @@ public class Pro22 {
     }
 
 
+    /**
+     * @param sequence
+     * @return
+     */
     public boolean VerifySquenceOfBST2(int[] sequence) {
         if (sequence == null || sequence.length <= 0) {
             return false;
@@ -63,14 +61,11 @@ public class Pro22 {
         if (start >= end) {
             return true;
         }
-
         int root = sequence[end];
-
         int i = start;
         while (sequence[i] < root) {
             i++;
         }
-
         int j = i;
         while (j < end) {
             if (sequence[j] < root) {
@@ -78,7 +73,6 @@ public class Pro22 {
             }
             j++;
         }
-
         boolean left = VerifySquenceOfBST(sequence, start, i - 1);
         boolean right = VerifySquenceOfBST(sequence, i, end - 1);
         return left && right;
