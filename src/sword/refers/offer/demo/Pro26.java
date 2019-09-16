@@ -12,7 +12,7 @@ import java.util.*;
 public class Pro26 {
     public static void main(String[] args) {
         Pro26 pro26 = new Pro26();
-        System.out.println(pro26.Permutation("fumingcai"));
+        System.out.println(pro26.Permutation("123"));
     }
 
 
