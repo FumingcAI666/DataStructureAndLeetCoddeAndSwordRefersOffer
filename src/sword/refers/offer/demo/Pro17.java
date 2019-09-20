@@ -1,64 +1,91 @@
 package sword.refers.offer.demo;
 
+import java.util.Scanner;
+
 /**
- * 操作给定的二叉树，将其变换为源二叉树的镜像。
- * 输入描述:
- * 二叉树的镜像定义：源二叉树
- *     	    8
- *     	   /  \
- *     	  6   10
- *     	 / \  / \
- *     	5  7 9 11
- *     	镜像二叉树
- *     	    8
- *     	   /  \
- *     	  10   6
- *     	 / \  / \
- *     	11 9 7  5
+ * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：空树不是任意一个树的子结构）
  *
  * @author macfmc
- * @date 2019/8/31-23:13
+ * @date 2019/8/31-0:19
  */
 public class Pro17 {
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        TreeNode treeNode1 = null;
+        TreeNode treeNode2 = null;
+        while (in.hasNextInt()) {
+            int l = in.nextInt();
+            int r = in.nextInt();
+            if (treeNode1 == null) {
+                treeNode2 = new TreeNode(l);
+                treeNode1 = treeNode2;
+            } else {
+                treeNode2.left = new TreeNode(l);
+                treeNode2 = treeNode2.left;
+                treeNode2.right = new TreeNode(r);
+                treeNode2 = treeNode2.right;
+            }
+            HasSubtree(treeNode1, treeNode2);
+        }
 
     }
 
     /**
-     * 先前序遍历这棵树的每个结点，如果遍历到的结点有子结点，就交换它的两个子节点，
-     * 当交换完所有的非叶子结点的左右子结点之后，就得到了树的镜像
+     * 判断B是不是A的子树
      *
-     * @param root
+     * @param root1
+     * @param root2
+     * @return
      */
-    public void Mirror(TreeNode root) {
-        if (root == null) {
-            return;
-        }
-        if (root.left == null && root.right == null) {
-            return;
-        }
+    public static boolean HasSubtree(TreeNode root1, TreeNode root2) {
+        boolean result = false;
+        //当Tree1和Tree2都不为零的时候，才进行比较。否则直接返回false
+        if (root2 != null && root1 != null) {
+            //如果找到了对应Tree2的根节点的点
+            if (root1.val == root2.val) {
+                //以这个根节点为为起点判断是否包含Tree2
+                result = doesTree1HaveTree2(root1, root2);
+            }
+            //如果找不到，那么就再去root的左儿子当作起点，去判断时候包含Tree2
+            if (!result) {
+                result = HasSubtree(root1.left, root2);
+            }
 
-        TreeNode pTemp = root.left;
-        root.left = root.right;
-        root.right = pTemp;
-
-        if (root.left != null) {
-            Mirror(root.left);
+            //如果还找不到，那么就再去root的右儿子当作起点，去判断时候包含Tree2
+            if (!result) {
+                result = HasSubtree(root1.right, root2);
+            }
         }
-        if (root.right != null) {
-            Mirror(root.right);
-        }
+        //返回结果
+        System.out.println(result);
+        return result;
     }
 
-    private class TreeNode {
+    public static boolean doesTree1HaveTree2(TreeNode node1, TreeNode node2) {
+        //如果Tree2已经遍历完了都能对应的上，返回true
+        if (node2 == null) {
+            return true;
+        }
+        //如果Tree2还没有遍历完，Tree1却遍历完了。返回false
+        if (node1 == null) {
+            return false;
+        }
+        //如果其中有一个点没有对应上，返回false
+        if (node1.val != node2.val) {
+            return false;
+        }
+
+        //如果根节点对应的上，那么就分别去子节点里面匹配
+        return doesTree1HaveTree2(node1.left, node2.left) && doesTree1HaveTree2(node1.right, node2.right);
+    }
+
+    private static class TreeNode {
         int val = 0;
         TreeNode left = null;
         TreeNode right = null;
 
         public TreeNode(int val) {
             this.val = val;
-
         }
-
     }
 }

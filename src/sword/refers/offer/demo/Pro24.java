@@ -1,68 +1,55 @@
 package sword.refers.offer.demo;
 
+import java.util.ArrayList;
+
 /**
- * 输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），
- * 返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
+ * 输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+ * 路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)
  *
  * @author macfmc
- * @date 2019/9/15-22:32
+ * @date 2019/9/12-23:11
  */
 public class Pro24 {
+    private ArrayList<ArrayList<Integer>> listAll = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<Integer> list = new ArrayList<Integer>();
+
     public static void main(String[] args) {
 
     }
 
     /**
-     * 解题思路：
-     * 1、遍历链表，复制每个结点，如复制结点A得到A1，将结点A1插到结点A后面；
-     * 2、重新遍历链表，复制老结点的随机指针给新结点，如A1.random = A.random.next;
-     * 3、拆分链表，将链表拆分为原链表和复制后的链表
+     * 返回二维列表，内部每个列表表示找到的路径
+     *
+     * @param root
+     * @param target
+     * @return
      */
-    public RandomListNode Clone(RandomListNode pHead) {
-        if (pHead == null) {
-            return null;
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        //1、递归先序遍历树， 把结点加入路径。
+        //2、若该结点是叶子结点则比较当前路径和是否等于期待和。
+        //3、弹出结点，每一轮递归返回到父结点时，当前路径也应该回退一个结点
+        if (root == null) {
+            return listAll;
         }
-
-        RandomListNode currentNode = pHead;
-        //1、复制每个结点，如复制结点A得到A1，将结点A1插到结点A后面；
-        while (currentNode != null) {
-            RandomListNode cloneNode = new RandomListNode(currentNode.label);
-            RandomListNode nextNode = currentNode.next;
-            currentNode.next = cloneNode;
-            cloneNode.next = nextNode;
-            currentNode = nextNode;
+        list.add(root.val);
+        target -= root.val;
+        if (target == 0 && root.left == null && root.right == null) {
+            listAll.add(new ArrayList<Integer>(list));
         }
-
-        currentNode = pHead;
-        //2、重新遍历链表，复制老结点的随机指针给新结点，如A1.random = A.random.next;
-        while (currentNode != null) {
-            currentNode.next.random = currentNode.random == null ? null : currentNode.random.next;
-            currentNode = currentNode.next.next;
-        }
-
-        //3、拆分链表，将链表拆分为原链表和复制后的链表
-        currentNode = pHead;
-        RandomListNode pCloneHead = pHead.next;
-        while (currentNode != null) {
-            RandomListNode cloneNode = currentNode.next;
-            currentNode.next = cloneNode.next;
-            cloneNode.next = cloneNode.next == null ? null : cloneNode.next.next;
-            currentNode = currentNode.next;
-        }
-
-        return pCloneHead;
+        FindPath(root.left, target);
+        FindPath(root.right, target);
+        list.remove(list.size() - 1);
+        return listAll;
     }
 
-    class RandomListNode {
-        int label;
-        RandomListNode next = null;
-        RandomListNode random = null;
+    class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
 
-        RandomListNode(int label) {
-            this.label = label;
+        public TreeNode(int val) {
+            this.val = val;
         }
     }
+
 }
-
-
-

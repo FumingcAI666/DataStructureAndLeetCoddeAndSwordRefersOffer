@@ -1,10 +1,12 @@
 package sword.refers.offer.demo;
 
+import java.util.ArrayList;
+
 /**
- * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+ * 从上往下打印出二叉树的每个节点，同层节点从左至右打印。
  *
  * @author macfmc
- * @date 2019/9/9-23:55
+ * @date 2019/9/8-22:20
  */
 public class Pro22 {
     public static void main(String[] args) {
@@ -12,69 +14,35 @@ public class Pro22 {
     }
 
     /**
-     * @param sequence
-     * @return
+     * 思路是用arraylist模拟一个队列来存储相应的TreeNode
      */
-    public boolean VerifySquenceOfBST(int[] sequence) {
-        if (sequence.length == 0) {
-            return false;
+    public ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<TreeNode> queue = new ArrayList<>();
+        if (root == null) {
+            return list;
         }
-        if (sequence.length == 1) {
-            return true;
-        }
-        return ju(sequence, 0, sequence.length - 1);
-
-    }
-
-    public boolean ju(int[] a, int star, int root) {
-        if (star >= root) {
-            return true;
-        }
-        int i = root;
-        //从后面开始找
-        while (i > star && a[i - 1] > a[root]) {
-            //找到比根小的坐标
-            i--;
-        }
-        //从前面开始找 star到i-1应该比根小
-        for (int j = star; j < i - 1; j++) {
-            if (a[j] > a[root]) {
-                return false;
+        queue.add(root);
+        while (queue.size() != 0) {
+            TreeNode temp = queue.remove(0);
+            if (temp.left != null) {
+                queue.add(temp.left);
             }
-        }
-        return ju(a, star, i - 1) && ju(a, i, root - 1);
-    }
-
-
-    /**
-     * @param sequence
-     * @return
-     */
-    public boolean VerifySquenceOfBST2(int[] sequence) {
-        if (sequence == null || sequence.length <= 0) {
-            return false;
-        }
-        return VerifySquenceOfBST(sequence, 0, sequence.length - 1);
-    }
-
-    private boolean VerifySquenceOfBST(int[] sequence, int start, int end) {
-        if (start >= end) {
-            return true;
-        }
-        int root = sequence[end];
-        int i = start;
-        while (sequence[i] < root) {
-            i++;
-        }
-        int j = i;
-        while (j < end) {
-            if (sequence[j] < root) {
-                return false;
+            if (temp.right != null) {
+                queue.add(temp.right);
             }
-            j++;
+            list.add(temp.val);
         }
-        boolean left = VerifySquenceOfBST(sequence, start, i - 1);
-        boolean right = VerifySquenceOfBST(sequence, i, end - 1);
-        return left && right;
+        return list;
+    }
+
+    class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
     }
 }

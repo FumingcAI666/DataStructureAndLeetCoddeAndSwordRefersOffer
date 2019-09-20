@@ -3,40 +3,81 @@ package sword.refers.offer.demo;
 import java.util.Stack;
 
 /**
- * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。
- * 例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。
- * （注意：这两个序列的长度是相等的）
+ * 定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。
  *
  * @author macfmc
- * @date 2019/9/6-23:48
+ * @date 2019/9/6-0:05
  */
 public class Pro20 {
+    /**
+     * 保存数据
+     */
+    Stack<Integer> data = new Stack<>();
+    /**
+     * 保存最小值
+     */
+    Stack<Integer> min = new Stack<>();
+    Integer temp = null;
+
+    /**
+     * 用一个栈data保存数据，用另一个栈min保存依次入栈的最小数(后来的数只有 比 以前入栈的数小，才会入栈)
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        System.out.println(IsPopOrder(new int[]{1, 2, 3, 4, 5}, new int[]{4, 5, 3, 2, 1}));
+
+    }
+
+    public void push(int node) {
+        //表明min栈中的数据
+        if (temp != null) {
+            //存放数据
+            data.push(node);
+            if (node < temp) {
+                //小的入栈
+                min.push(node);
+            }
+        } else {
+            //第一次添加数据
+            data.push(node);
+            temp = node;
+            min.push(node);
+        }
+    }
+
+    public void pop() {
+        //data进行pop时，把min也pop出来
+        int num1 = data.pop();
+        int num2 = min.pop();
+        //如果data出来的不是最小的，在把最小值push回min中
+        if (num1 != num2) {
+            min.push(num2);
+
+        }
     }
 
     /**
-     * @param pushA
-     * @param popA
+     * 取出数据，但不删除
+     *
      * @return
      */
-    public static boolean IsPopOrder(int[] pushA, int[] popA) {
-        if (pushA.length == 0 || popA.length == 0) {
-            return false;
-        }
-        Stack<Integer> s = new Stack<Integer>();
-        //用于标识弹出序列的位置
-        int popIndex = 0;
-        for (int i = 0; i < pushA.length; i++) {
-            s.push(pushA[i]);
-            //如果栈不为空，且栈顶元素等于弹出序列
-            while (!s.empty() && s.peek() == popA[popIndex]) {
-                //出栈
-                s.pop();
-                //弹出序列向后一位
-                popIndex++;
-            }
-        }
-        return s.empty();
+    public int top() {
+        //因此pop后，在push进去
+        int num = data.pop();
+        data.push(num);
+        return num;
     }
+
+    /**
+     * 取出数据，但不删除
+     *
+     * @return
+     */
+    public int min() {
+        //因此pop后，在push进去
+        int m = min.pop();
+        min.push(m);
+        return m;
+    }
+
 }

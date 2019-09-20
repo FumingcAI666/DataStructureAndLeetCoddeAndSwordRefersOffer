@@ -1,90 +1,52 @@
 package sword.refers.offer.demo;
 
-import java.util.StringJoiner;
-
 /**
- * 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
+ * 输入一个链表，反转链表后，输出新链表的表头。
  *
  * @author macfmc
- * @date 2019/8/30-22:49
+ * @date 2019/9/20-10:29
  */
 public class Pro15 {
     public static void main(String[] args) {
-        ListNode list1 = new ListNode(4);
-        ListNode list2 = new ListNode(2);
-        System.out.println(bocia(list1, list2).toString());
+
     }
 
-    /**
-     * 将节点2的值插入到节点1之后
-     *
-     * @param list1
-     * @param list2
-     * @return
-     */
-    public static ListNode bocia(ListNode list1, ListNode list2) {
-        // 单链表为null的处理情况
-        if (list1 == null || list2 == null) {
-            return list1 == null ? list2 : list1;
-        }
-        /**
-         * 单链表头结点的确定
-         */
-        // head初始指向值较小的节点
-        ListNode head = list1.val <= list2.val ? list1 : list2;
-        // cur1初始指向值较小的节点
-        ListNode cur1 = head == list1 ? list1 : list2;
-        // cur2初始指向值较大的节点
-        ListNode cur2 = head == list1 ? list2 : list1;
-        /**
-         *  合并后链表的前置和后置指针
-         */
-        // pre指向上一次比较中节点值较小的节点
+    public ListNode ReverseList(ListNode head) {
+        if (head == null)
+            return null;
+        //head为当前节点，如果当前节点为空的话，那就什么也不做，直接返回null；
         ListNode pre = null;
-        // next用于保存链表2中的下一个节点
         ListNode next = null;
-        // 遍历链表，执行插入操作
-        while (cur1 != null && cur2 != null) {
-            // 节点1值较小，无需调整
-            if (cur1.val <= cur2.val) {
-                pre = cur1;
-                cur1 = cur1.next;
-
-                // 节点1值较大，将节点2插入节点1
-            } else {
-                // 保存链表2的下一节点
-                next = cur2.next;
-
-                // 插入节点cur2
-                pre.next = cur2;
-                cur2.next = cur1;
-
-                // pre指向上一次比较中节点值较小的节点
-                pre = cur2;
-
-                // 恢复链表2指向
-                cur2 = next;
-            }
+        //当前节点是head，pre为当前节点的前一节点，next为当前节点的下一节点
+        //需要pre和next的目的是让当前节点从pre->head->next1->next2变成pre<-head next1->next2
+        //即pre让节点可以反转所指方向，但反转之后如果不用next节点保存next1节点的话，此单链表就此断开了
+        //所以需要用到pre和next两个节点
+        //1->2->3->4->5
+        //1<-2<-3 4->5
+        while (head != null) {
+            //做循环，如果当前节点不为空的话，始终执行此循环，此循环的目的就是让当前节点从指向next到指向pre
+            //如此就可以做到反转链表的效果
+            //先用next保存head的下一个节点的信息，保证单链表不会因为失去head节点的原next节点而就此断裂
+            next = head.next;
+            //保存完next，就可以让head从指向next变成指向pre了，代码如下
+            head.next = pre;
+            //head指向pre后，就继续依次反转下一个节点
+            //让pre，head，next依次向后移动一个节点，继续下一次的指针反转
+            pre = head;
+            head = next;
         }
-        // 追加链表剩余部分
-        pre.next = cur1 == null ? cur2 : cur1;
-        return head;
+        //如果head为null的时候，pre就为最后一个节点了，但是链表已经反转完毕，pre就是反转后链表的第一个节点
+        //直接输出pre就是我们想要得到的反转后的链表
+        return pre;
     }
 
-    private static class ListNode {
+    class ListNode {
         int val;
         ListNode next = null;
 
         ListNode(int val) {
             this.val = val;
         }
-
-        @Override
-        public String toString() {
-            return new StringJoiner(", ", ListNode.class.getSimpleName() + "[", "]")
-                    .add("val=" + val)
-                    .add("next=" + next)
-                    .toString();
-        }
     }
 }
+

@@ -1,91 +1,90 @@
 package sword.refers.offer.demo;
 
-import java.util.Scanner;
+import java.util.StringJoiner;
 
 /**
- * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：空树不是任意一个树的子结构）
+ * 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
  *
  * @author macfmc
- * @date 2019/8/31-0:19
+ * @date 2019/8/30-22:49
  */
 public class Pro16 {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        TreeNode treeNode1 = null;
-        TreeNode treeNode2 = null;
-        while (in.hasNextInt()) {
-            int l = in.nextInt();
-            int r = in.nextInt();
-            if (treeNode1 == null) {
-                treeNode2 = new TreeNode(l);
-                treeNode1 = treeNode2;
-            } else {
-                treeNode2.left = new TreeNode(l);
-                treeNode2 = treeNode2.left;
-                treeNode2.right = new TreeNode(r);
-                treeNode2 = treeNode2.right;
-            }
-            HasSubtree(treeNode1, treeNode2);
-        }
-
+        ListNode list1 = new ListNode(4);
+        ListNode list2 = new ListNode(2);
+        System.out.println(bocia(list1, list2).toString());
     }
 
     /**
-     * 判断B是不是A的子树
+     * 将节点2的值插入到节点1之后
      *
-     * @param root1
-     * @param root2
+     * @param list1
+     * @param list2
      * @return
      */
-    public static boolean HasSubtree(TreeNode root1, TreeNode root2) {
-        boolean result = false;
-        //当Tree1和Tree2都不为零的时候，才进行比较。否则直接返回false
-        if (root2 != null && root1 != null) {
-            //如果找到了对应Tree2的根节点的点
-            if (root1.val == root2.val) {
-                //以这个根节点为为起点判断是否包含Tree2
-                result = doesTree1HaveTree2(root1, root2);
-            }
-            //如果找不到，那么就再去root的左儿子当作起点，去判断时候包含Tree2
-            if (!result) {
-                result = HasSubtree(root1.left, root2);
-            }
+    public static ListNode bocia(ListNode list1, ListNode list2) {
+        // 单链表为null的处理情况
+        if (list1 == null || list2 == null) {
+            return list1 == null ? list2 : list1;
+        }
+        /**
+         * 单链表头结点的确定
+         */
+        // head初始指向值较小的节点
+        ListNode head = list1.val <= list2.val ? list1 : list2;
+        // cur1初始指向值较小的节点
+        ListNode cur1 = head == list1 ? list1 : list2;
+        // cur2初始指向值较大的节点
+        ListNode cur2 = head == list1 ? list2 : list1;
+        /**
+         *  合并后链表的前置和后置指针
+         */
+        // pre指向上一次比较中节点值较小的节点
+        ListNode pre = null;
+        // next用于保存链表2中的下一个节点
+        ListNode next = null;
+        // 遍历链表，执行插入操作
+        while (cur1 != null && cur2 != null) {
+            // 节点1值较小，无需调整
+            if (cur1.val <= cur2.val) {
+                pre = cur1;
+                cur1 = cur1.next;
 
-            //如果还找不到，那么就再去root的右儿子当作起点，去判断时候包含Tree2
-            if (!result) {
-                result = HasSubtree(root1.right, root2);
+                // 节点1值较大，将节点2插入节点1
+            } else {
+                // 保存链表2的下一节点
+                next = cur2.next;
+
+                // 插入节点cur2
+                pre.next = cur2;
+                cur2.next = cur1;
+
+                // pre指向上一次比较中节点值较小的节点
+                pre = cur2;
+
+                // 恢复链表2指向
+                cur2 = next;
             }
         }
-        //返回结果
-        System.out.println(result);
-        return result;
+        // 追加链表剩余部分
+        pre.next = cur1 == null ? cur2 : cur1;
+        return head;
     }
 
-    public static boolean doesTree1HaveTree2(TreeNode node1, TreeNode node2) {
-        //如果Tree2已经遍历完了都能对应的上，返回true
-        if (node2 == null) {
-            return true;
-        }
-        //如果Tree2还没有遍历完，Tree1却遍历完了。返回false
-        if (node1 == null) {
-            return false;
-        }
-        //如果其中有一个点没有对应上，返回false
-        if (node1.val != node2.val) {
-            return false;
-        }
+    private static class ListNode {
+        int val;
+        ListNode next = null;
 
-        //如果根节点对应的上，那么就分别去子节点里面匹配
-        return doesTree1HaveTree2(node1.left, node2.left) && doesTree1HaveTree2(node1.right, node2.right);
-    }
-
-    private static class TreeNode {
-        int val = 0;
-        TreeNode left = null;
-        TreeNode right = null;
-
-        public TreeNode(int val) {
+        ListNode(int val) {
             this.val = val;
+        }
+
+        @Override
+        public String toString() {
+            return new StringJoiner(", ", ListNode.class.getSimpleName() + "[", "]")
+                    .add("val=" + val)
+                    .add("next=" + next)
+                    .toString();
         }
     }
 }

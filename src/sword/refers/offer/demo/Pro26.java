@@ -1,147 +1,143 @@
 package sword.refers.offer.demo;
 
-import java.util.*;
+import java.util.Stack;
 
 /**
- * 输入一个字符串,按字典序打印出该字符串中字符的所有排列。
- * 例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。
+ * 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。
  *
  * @author macfmc
- * @date 2019/9/16-17:56
+ * @date 2019/9/16-16:38
  */
 public class Pro26 {
+    /**
+     * 方法三：改进递归版
+     * 解题思路：
+     * 思路与方法二中的递归版一致，仅对第2点中的定位作了修改，新增一个全局变量记录左子树的最后一个节点。
+     *
+     * @param root
+     * @return
+     */
+    // 记录子树链表的最后一个节点，终结点只可能为只含左子树的非叶节点与叶节点
+    protected TreeNode leftLast = null;
+
     public static void main(String[] args) {
-        Pro26 pro26 = new Pro26();
-        System.out.println(pro26.Permutation("123"));
-    }
 
-
-    /**
-     * 1、递归算法
-     * 解析：http://www.cnblogs.com/cxjchen/p/3932949.html  (感谢该文作者！)
-     * 对于无重复值的情况
-     * <p>
-     * 固定第一个字符，递归取得首位后面的各种字符串组合；
-     * 再把第一个字符与后面每一个字符交换，并同样递归获得首位后面的字符串组合； *递归的出口，就是只剩一个字符的时候，递归的循环过程，就是从每个子串的第二个字符开始依次与第一个字符交换，然后继续处理子串。
-     * <p>
-     * 假如有重复值呢？
-     * *由于全排列就是从第一个数字起，每个数分别与它后面的数字交换，我们先尝试加个这样的判断——如果一个数与后面的数字相同那么这两个数就不交换了。
-     * 例如abb，第一个数与后面两个数交换得bab，bba。然后abb中第二个数和第三个数相同，就不用交换了。
-     * 但是对bab，第二个数和第三个数不 同，则需要交换，得到bba。
-     * 由于这里的bba和开始第一个数与第三个数交换的结果相同了，因此这个方法不行。
-     * <p>
-     * 换种思维，对abb，第一个数a与第二个数b交换得到bab，然后考虑第一个数与第三个数交换，此时由于第三个数等于第二个数，
-     * 所以第一个数就不再用与第三个数交换了。再考虑bab，它的第二个数与第三个数交换可以解决bba。此时全排列生成完毕！
-     *
-     * @param str
-     * @return
-     */
-
-    public ArrayList<String> Permutation(String str) {
-
-        ArrayList<String> list = new ArrayList<String>();
-        if (str != null && str.length() > 0) {
-            PermutationHelper(str.toCharArray(), 0, list);
-            Collections.sort(list);
-        }
-        return list;
-    }
-
-    private void PermutationHelper(char[] chars, int i, ArrayList<String> list) {
-        if (i == chars.length - 1) {
-            list.add(String.valueOf(chars));
-        } else {
-            Set<Character> charSet = new HashSet<Character>();
-            for (int j = i; j < chars.length; ++j) {
-                if (j == i || !charSet.contains(chars[j])) {
-                    charSet.add(chars[j]);
-                    swap(chars, i, j);
-                    PermutationHelper(chars, i + 1, list);
-                    swap(chars, j, i);
-                }
-            }
-        }
-    }
-
-    private void swap(char[] cs, int i, int j) {
-        char temp = cs[i];
-        cs[i] = cs[j];
-        cs[j] = temp;
     }
 
     /**
-     * 2、字典序排列算法
-     * <p>
-     * 可参考解析： http://www.cnblogs.com/pmars/archive/2013/12/04/3458289.html  （感谢作者）
-     * <p>
-     * 一个全排列可看做一个字符串，字符串可有前缀、后缀。
-     * 生成给定全排列的下一个排列.所谓一个的下一个就是这一个与下一个之间没有其他的。
-     * 这就要求这一个与下一个有尽可能长的共同前缀，也即变化限制在尽可能短的后缀上。
-     * <p>
-     * [例]839647521是1--9的排列。1—9的排列最前面的是123456789，最后面的987654321，
-     * 从右向左扫描若都是增的，就到了987654321，也就没有下一个了。否则找出第一次出现下降的位置。
-     * <p>
-     * 【例】 如何得到346987521的下一个
-     * 1，从尾部往前找第一个P(i-1) < P(i)的位置
-     * 3 4 6 <- 9 <- 8 <- 7 <- 5 <- 2 <- 1
-     * 最终找到6是第一个变小的数字，记录下6的位置i-1
-     * <p>
-     * 2，从i位置往后找到最后一个大于6的数
-     * 3 4 6 -> 9 -> 8 -> 7 5 2 1
-     * 最终找到7的位置，记录位置为m
-     * <p>
-     * 3，交换位置i-1和m的值
-     * 3 4 7 9 8 6 5 2 1
-     * 4，倒序i位置后的所有数据
-     * 3 4 7 1 2 5 6 8 9
-     * 则347125689为346987521的下一个排列
+     * 方法二：递归版
+     * 解题思路：
+     * 1.将左子树构造成双链表，并返回链表头节点。
+     * 2.定位至左子树双链表最后一个节点。
+     * 3.如果左子树链表不为空的话，将当前root追加到左子树链表。
+     * 4.将右子树构造成双链表，并返回链表头节点。
+     * 5.如果右子树链表不为空的话，将该链表追加到root节点之后。
+     * 6.根据左子树链表是否为空确定返回的节点。
      *
-     * @param str
+     * @param root
      * @return
      */
-
-    public ArrayList<String> Permutation2(String str) {
-        ArrayList<String> list = new ArrayList<String>();
-        if (str == null || str.length() == 0) {
-            return list;
+    public static TreeNode Convert(TreeNode root) {
+        if (root == null) {
+            return null;
         }
-        char[] chars = str.toCharArray();
-        Arrays.sort(chars);
-        list.add(String.valueOf(chars));
-        int len = chars.length;
-        while (true) {
-            int lIndex = len - 1;
-            int rIndex;
-            while (lIndex >= 1 && chars[lIndex - 1] >= chars[lIndex]) {
-                lIndex--;
-            }
-            if (lIndex == 0)
-                break;
-            rIndex = lIndex;
-            while (rIndex < len && chars[rIndex] > chars[lIndex - 1]) {
-                rIndex++;
-            }
-            swap(chars, lIndex - 1, rIndex - 1);
-            reverse(chars, lIndex);
-
-            list.add(String.valueOf(chars));
+        if (root.left == null && root.right == null) {
+            return root;
         }
-
-        return list;
+        // 1.将左子树构造成双链表，并返回链表头节点
+        TreeNode left = Convert(root.left);
+        TreeNode p = left;
+        // 2.定位至左子树双链表最后一个节点
+        while (p != null && p.right != null) {
+            p = p.right;
+        }
+        // 3.如果左子树链表不为空的话，将当前root追加到左子树链表
+        if (left != null) {
+            p.right = root;
+            root.left = p;
+        }
+        // 4.将右子树构造成双链表，并返回链表头节点
+        TreeNode right = Convert(root.right);
+        // 5.如果右子树链表不为空的话，将该链表追加到root节点之后
+        if (right != null) {
+            right.left = root;
+            root.right = right;
+        }
+        return left != null ? left : root;
     }
 
-    private void reverse(char[] chars, int k) {
-        if (chars == null || chars.length <= k)
-            return;
-        int len = chars.length;
-        for (int i = 0; i < (len - k) / 2; i++) {
-            int m = k + i;
-            int n = len - 1 - i;
-            if (m <= n) {
-                swap(chars, m, n);
-            }
+    /**
+     * 方法一：非递归版
+     * 解题思路：
+     * 1.核心是中序遍历的非递归算法。
+     * 2.修改当前遍历节点与前一遍历节点的指针指向。
+     *
+     * @param root
+     * @return
+     */
+    public TreeNode ConvertBSTToBiList(TreeNode root) {
+        if (root == null) {
+            return null;
         }
-
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = root;
+        TreeNode pre = null;// 用于保存中序遍历序列的上一节点
+        boolean isFirst = true;
+        while (p != null || !stack.isEmpty()) {
+            while (p != null) {
+                stack.push(p);
+                p = p.left;
+            }
+            p = stack.pop();
+            if (isFirst) {
+                root = p;// 将中序遍历序列中的第一个节点记为root
+                pre = root;
+                isFirst = false;
+            } else {
+                pre.right = p;
+                p.left = pre;
+                pre = p;
+            }
+            p = p.right;
+        }
+        return root;
     }
 
+    public TreeNode Convert2(TreeNode root) {
+        if (root == null)
+            return null;
+        if (root.left == null && root.right == null) {
+            // 最后的一个节点可能为最右侧的叶节点
+            leftLast = root;
+            return root;
+        }
+        // 1.将左子树构造成双链表，并返回链表头节点
+        TreeNode left = Convert2(root.left);
+        // 3.如果左子树链表不为空的话，将当前root追加到左子树链表
+        if (left != null) {
+            leftLast.right = root;
+            root.left = leftLast;
+        }
+        // 当根节点只含左子树时，则该根节点为最后一个节点
+        leftLast = root;
+        // 4.将右子树构造成双链表，并返回链表头节点
+        TreeNode right = Convert2(root.right);
+        // 5.如果右子树链表不为空的话，将该链表追加到root节点之后
+        if (right != null) {
+            right.left = root;
+            root.right = right;
+        }
+        return left != null ? left : root;
+    }
+
+    static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+
+        }
+    }
 }
