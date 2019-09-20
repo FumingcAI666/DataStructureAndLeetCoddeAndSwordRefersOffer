@@ -6,7 +6,7 @@ package sword.refers.offer.demo;
  * @author macfmc
  * @date 2019/8/28-9:20
  */
-public class Pro8 {
+public class Pro08 {
     public static void main(String[] args) {
         System.out.println(JumpFloor(2));
         System.out.println(JumpFloor(3));

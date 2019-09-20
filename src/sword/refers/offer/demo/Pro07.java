@@ -7,7 +7,7 @@ package sword.refers.offer.demo;
  * @author macfmc
  * @date 2019/8/27-11:21
  */
-public class Pro7 {
+public class Pro07 {
 
     public static void main(String[] args) {
         System.out.println(Fibonacci(3));
