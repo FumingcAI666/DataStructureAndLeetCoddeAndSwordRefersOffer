@@ -14,6 +14,12 @@ public class Pro31 {
         System.out.println(NumberOf1Between1AndN_Solution2(9999910));
     }
 
+    /**
+     * 归纳法
+     *
+     * @param n
+     * @return
+     */
     public static int NumberOf1Between1AndN_Solution(int n) {
         if (n <= 0)
             return 0;
