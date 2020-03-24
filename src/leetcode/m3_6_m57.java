@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class m3_6_m57 {
     public static void main(String[] args) {
-        int[][] a = findContinuousSequence(9);
+        int[][] a = findContinuousSequence(15);
         /**
          * 打印数组
          */
