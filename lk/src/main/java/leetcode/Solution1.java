@@ -27,13 +27,14 @@ public class Solution1 {
         // 建立k-v，一一对应的哈希表
         HashMap<Integer,Integer> hash = new HashMap<>();
         for(int i = 0; i < nums.length; i++){
+            // 将数据存入 key为补数 ，value为下标
+            hash.put(target-nums[i],i);
+            //用 containsKey(key) 方法来检查 key 是否存在，如果存在，将该key（即补数）的值（即对应的数组下标）存放进数组indexs，同时存放该数的下标放进indexs，得到结果
             if(hash.containsKey(nums[i])){
                 indexs[0] = i;
                 indexs[1] = hash.get(nums[i]);
                 return indexs;
             }
-            // 将数据存入 key为补数 ，value为下标
-            hash.put(target-nums[i],i);
         }
         return indexs;
     }
