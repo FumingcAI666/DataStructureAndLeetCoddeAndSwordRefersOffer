@@ -1,4 +1,4 @@
-package main.java.leetcode;
+package leetcode;
 
 /**给你一个整数数组 A，只有可以将其划分为三个和相等的非空部分时才返回 true，否则返回 false。
  形式上，如果可以找出索引 i+1 < j 且满足 (A[0] + A[1] + ... + A[i]
