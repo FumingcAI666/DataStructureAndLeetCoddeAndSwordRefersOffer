@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import java.util.HashMap;
  * @author jackLinkai
  * @date 2020年4月29日22点33分
  */
-public class Solution1 {
+public class Solution_1 {
     /**思路：
      * 首先建立一个hashMap，将数据存入 key为补数 ，value为下标
      * 然后指针往下一位移动，用 containsKey(key) 方法来检查 key 是否存在，如果存在，

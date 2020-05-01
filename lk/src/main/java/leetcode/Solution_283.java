@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ import java.util.Arrays;
  * @author jackLinkai
  * @date 2020年4月29日23点09分
  */
-public class Solution283 {
+public class Solution_283 {
     /**思路：
      * 设置一个index，表示非0数的个数，循环遍历数组，
      * 如果不是0，将非0值移动到第index位置,然后index + 1

@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 /**将数组分成和相等的三个部分
  * 给你一个整数数组A
@@ -30,7 +30,7 @@ package leetcode;
  * @date 2020年4月29日21点55分
  */
 
-public class Solution1013 {
+public class Solution_1013 {
 
      /** 思路：
      * 1.先判断数组是否符合要求：* 3 <= A.length <= 50000 * -10^4 <= A[i] <= 10^4

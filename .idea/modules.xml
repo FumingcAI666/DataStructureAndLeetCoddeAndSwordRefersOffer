@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sword-refers-to-offer.iml" filepath="$PROJECT_DIR$/Sword-refers-to-offer.iml" />
       <module fileurl="file://$PROJECT_DIR$/lk/lk.iml" filepath="$PROJECT_DIR$/lk/lk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yxh/yxh.iml" filepath="$PROJECT_DIR$/yxh/yxh.iml" />
     </modules>
   </component>
 </project>
