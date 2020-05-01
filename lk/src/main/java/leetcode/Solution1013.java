@@ -1,13 +1,15 @@
 package leetcode;
 
-/**将数组分成和相等的三个部分
+/**
+ * 将数组分成和相等的三个部分
  * 给你一个整数数组A
  * 只有可以将其划分为三个和相等的非空部分时才返回true
  * 否则返回 false
  * 形式上，如果可以找出索引i+1<j
  * 且满足(A[0] + A[1] + ... + A[i] == A[i+1] + A[i+2] + ... + A[j-1] == A[j] + A[j-1] + ... + A[A.length - 1])
  * 就可以将数组三等分
- *示例 1：
+ *
+ * 示例 1：
  * 输入：[0,2,1,-6,6,-7,9,1,2,0,1]
  * 输出：true
  * 解释：0 + 2 + 1 = -6 + 6 - 7 + 9 + 1 = 2 + 0 + 1
@@ -32,17 +34,23 @@ package leetcode;
 
 public class Solution1013 {
 
-     /** 思路：
-     * 1.先判断数组是否符合要求：* 3 <= A.length <= 50000 * -10^4 <= A[i] <= 10^4
-     * 2.然后求该数组值的总和sum，是否为3的倍数，不是的话不符合条件，是的话得到sum/=3。
-     * 3.最后，从头开始遍历并求和，通过group+=A[i]，判断group==sum,依次获取第一组、第二组，并校验比三组。
-     */
+     /**
+      * 思路：
+      * 1.先判断数组是否符合要求：* 3 <= A.length <= 50000 * -10^4 <= A[i] <= 10^4
+      * 2.然后求该数组值的总和sum，是否为3的倍数，不是的话不符合条件，是的话得到sum/=3。
+      * 3.最后，从头开始遍历并求和，通过group+=A[i]，判断group==sum,依次获取第一组、第二组，并校验比三组
+      */
+
+    public static int minlen = 3;
+    public static int maxlen = 50000;
+    public static int groupNum = 3;
+
 
     public static boolean canThreePartsEqualSum(int[] A) {
         //获取数组长度
         int len=A.length;
         //如果长度小于3或大于50000，则不符合题干要求
-        if(len<3||len>50000) {
+        if(len<minlen||len>maxlen) {
             return false;
         }
         //使用增强for循环得出该数组总和
@@ -54,7 +62,7 @@ public class Solution1013 {
             sum += num;
         }
         //如果总和不是3的倍数，说明不能分为3组值相同的数组
-        if(sum%3!=0) {
+        if(sum%groupNum!=0) {
             return false;
         }
         //假设可以分为三组值相同的子数组，求此子数组和为sum/=3
