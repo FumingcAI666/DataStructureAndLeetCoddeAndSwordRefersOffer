@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 /**
  * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
@@ -17,7 +17,7 @@ package leetcode;
  * @author YXH
  * @date 2020/4/29 - 20:13
  */
-public class simple283 {
+public class simple_283 {
     public static void main(String[] args) {
         int[] test1 = {0, 1, 0, 3, 12};
         int[] test2 = {0, 1, 0, 3, 12, 0};

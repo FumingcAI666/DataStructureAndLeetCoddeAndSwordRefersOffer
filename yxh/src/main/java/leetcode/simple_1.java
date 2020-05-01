@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @author YXH
  * @date 2020/4/29 - 20:43
  */
-public class simple1 {
+public class simple_1 {
 
     public static void main(String[] args) {
         int[] test1 = {2, 7, 11, 15};

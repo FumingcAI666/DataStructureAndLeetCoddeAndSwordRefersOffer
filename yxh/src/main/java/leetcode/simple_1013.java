@@ -1,4 +1,4 @@
-package leetcode;
+package main.java.leetcode;
 
 /**
  * 给你一个整数数组 A，只有可以将其划分为三个和相等的非空部分时才返回 true，否则返回 false。
@@ -31,7 +31,7 @@ package leetcode;
  * @author YXH
  * @date 2020/4/29 - 19:31
  */
-public class simple1013 {
+public class simple_1013 {
     public static void main(String[] args) {
         int[] test1 = {0, 2, 1, -6, 6, -7, 9, 1, 2, 0, 1};
         int[] test2 = {0, 2, 1, -6, 6, 7, 9, -1, 2, 0, 1};
