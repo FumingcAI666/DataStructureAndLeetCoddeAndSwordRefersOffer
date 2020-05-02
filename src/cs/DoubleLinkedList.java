@@ -34,8 +34,8 @@ public class DoubleLinkedList {
 
     public Node search(Object o) {
         Node e = nil.next;
-        while (e != nil && e.key != o) {
-            e = nil.next;
+        while (e != nil && e.key != o) { // 从nil节点开始遍历
+            e = nil.next;  // 向后查询
         }
         return e;
     }
