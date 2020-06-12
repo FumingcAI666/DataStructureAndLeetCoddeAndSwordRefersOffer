@@ -28,6 +28,7 @@ public class 面试题40_最小的k个数 {
 
     /**
      * 使用一个最大堆,找最小的K个数 O(NlogK)
+     * todo，没理解
      *
      * @param arr
      * @param k
