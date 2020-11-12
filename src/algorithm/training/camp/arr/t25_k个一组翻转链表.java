@@ -127,7 +127,6 @@ public class t25_k个一组翻转链表 {
     }
 
     /**
-     *
      * @param head 整个未反转的链表
      * @param tail 本轮不需要反转的链表
      * @return
