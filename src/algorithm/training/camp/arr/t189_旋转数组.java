@@ -77,7 +77,7 @@ public class t189_旋转数组 {
      *
      * @param nums
      * @param start
-     * @param end
+     * @param end、
      */
     public void reverse(int[] nums, int start, int end) {
         // 交换条件，果start>=end 就不需要交换了
